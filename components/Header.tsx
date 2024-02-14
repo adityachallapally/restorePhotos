@@ -33,7 +33,7 @@ export default function Header({ photo }: { photo?: string | undefined }) {
             <p className="font-medium text-base">Home</p>
           </Link>
           <Link
-            href="/restore"
+            href="/transform"
             className="border-gray-300 pr-4 space-x-2 hover:text-blue-400 transition hidden sm:flex"
           >
             <p className="font-medium text-base">Transform</p>

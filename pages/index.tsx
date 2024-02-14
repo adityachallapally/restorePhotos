@@ -53,7 +53,7 @@ const Home: NextPage = () => {
 
           <Link
             className="bg-black rounded-xl text-white font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-black/80"
-            href="/restore"
+            href="/transform"
           >
             Transform your image
           </Link>
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
               <div className="sm:mt-0 mt-8">
                 <h2 className="mb-1 font-medium text-lg">SVG version</h2>
                 <Image
-                  alt="Restored photo of my bro"
+                  alt="Transformed Photo"
                   width={400}
                   height={400}
                   src="/new-cactus.png"

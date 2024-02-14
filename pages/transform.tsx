@@ -113,7 +113,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>transform Photos</title>
+        <title>Transform Photos</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -147,53 +147,45 @@ const Home: NextPage = () => {
               transformed={transformedImage!}
             />
           )}
-          {status === 'loading' ? (
-            <div className="max-w-[670px] h-[250px] flex justify-center items-center">
-              <Rings
-                height="100"
-                width="100"
-                color="black"
-                radius="6"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-                ariaLabel="rings-loading"
-              />
-            </div>
-          ) : status === 'authenticated' && !originalPhoto ? (
-            <UploadDropZone />
-          ) : (
-            !originalPhoto && (
-              <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
-                <div className="max-w-xl text-gray-600">
-                  Sign in below with Google to create a free account and transform
-                  your photos today. You will be able to transform 4 photos per
-                  day for free.
-                </div>
-                <button
-                  onClick={() => signIn('google')}
-                  className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
-                >
-                  <Image
-                    src="/google.png"
-                    width={20}
-                    height={20}
-                    alt="google's logo"
-                  />
-                  <span>Sign in with Google</span>
-                </button>
+          {
+            status === 'loading' ? (
+              <div className="max-w-[670px] h-[250px] flex justify-center items-center">
+                <Rings
+                  height="100"
+                  width="100"
+                  color="black"
+                  radius="6"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="rings-loading"
+                />
               </div>
+            ) : (
+              !originalPhoto && (
+                <>
+                  <UploadDropZone />
+                  <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
+                    <div className="mt-8 max-w-xl text-gray-600">
+                      Transform your photos today. You will be able to transform 4 photos per day for free.
+                    </div>
+                    <button
+                      onClick={() => signIn('google')}
+                      className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                    >
+                      <Image
+                        src="/google.png"
+                        width={20}
+                        height={20}
+                        alt="google's logo"
+                      />
+                      <span>Sign in with Google</span>
+                    </button>
+                  </div>
+                </>
+              )
             )
-          )}
-          {originalPhoto && !transformedImage && (
-            <Image
-              alt="original photo"
-              src={originalPhoto}
-              className="rounded-2xl"
-              width={475}
-              height={475}
-            />
-          )}
+          }
           {transformedImage && originalPhoto && !sideBySide && (
             <div className="flex sm:space-x-4 sm:flex-row flex-col">
               <div>
@@ -207,7 +199,7 @@ const Home: NextPage = () => {
                 />
               </div>
               <div className="sm:mt-0 mt-8">
-                <h2 className="mb-1 font-medium text-lg">transformed Photo</h2>
+                <h2 className="mb-1 font-medium text-lg">Transformed Photo</h2>
                 <a href={transformedImage} target="_blank" rel="noreferrer">
                   <Image
                     alt="transformed photo"
@@ -265,7 +257,7 @@ const Home: NextPage = () => {
                 }}
                 className="bg-white rounded-full text-black border font-medium px-4 py-2 mt-8 hover:bg-gray-100 transition"
               >
-                Download transformed Photo
+                Download Transformed Photo
               </button>
             )}
           </div>

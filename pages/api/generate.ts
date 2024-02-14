@@ -24,6 +24,7 @@ export default async function handler(
   req: ExtendedNextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  /*
   // Check if user is logged in
   const session = await getServerSession(req, res, authOptions);
   if (!session || !session.user) {
@@ -48,12 +49,13 @@ export default async function handler(
       return res
         .status(429)
         .json(
-          `Your generations will renew in ${hours} hours and ${minutes} minutes. Email hassan@hey.com if you have any questions.`
+          `Your generations will renew in ${hours} hours and ${minutes} minutes.`
         );
     }
-  }
+  }*/
 
   const imageUrl = req.body.imageUrl;
+  /*
   // POST request to Replicate to start the image transformation generation process
   let startResponse = await fetch("https://api.replicate.com/v1/predictions", {
     method: "POST",
@@ -66,9 +68,32 @@ export default async function handler(
         "9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3",
       input: { img: imageUrl, version: "v1.4", scale: 2 },
     }),
+  });*/
+  let startResponse = await fetch("https://api.replicate.com/v1/predictions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Token " + process.env.REPLICATE_API_KEY,
+    },
+    body: JSON.stringify({
+      version:
+        "5c7d5dc6dd8bf75c1acaa8565735e7986bc5b66206b55cca93cb72c9bf15ccaa",
+      input: { text: "Alice"},
+    }),
   });
 
+
+  if (!startResponse.ok) {
+    throw new Error('Failed to start image transformation process');
+  }
+  
   let jsonStartResponse = await startResponse.json();
+  
+  // Check if `urls` and `urls.get` exist
+  if (!jsonStartResponse.urls || !jsonStartResponse.urls.get) {
+    throw new Error('Unexpected response structure or missing URL for polling');
+  }
+
   let endpointUrl = jsonStartResponse.urls.get;
 
   // GET request to get the status of the image transformation process & return the result when it's ready
@@ -84,9 +109,9 @@ export default async function handler(
       },
     });
     let jsonFinalResponse = await finalResponse.json();
-
+    console.log(jsonFinalResponse)
     if (jsonFinalResponse.status === "succeeded") {
-      transformedImage = jsonFinalResponse.output;
+      transformedImage = "/new-cactus.png"
     } else if (jsonFinalResponse.status === "failed") {
       break;
     } else {
