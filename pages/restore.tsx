@@ -23,9 +23,9 @@ import { Rings } from 'react-loader-spinner';
 
 const Home: NextPage = () => {
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
-  const [restoredImage, setRestoredImage] = useState<string | null>(null);
+  const [transformedImage, settransformedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [restoredLoaded, setRestoredLoaded] = useState<boolean>(false);
+  const [transformedLoaded, settransformedLoaded] = useState<boolean>(false);
   const [sideBySide, setSideBySide] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
@@ -105,7 +105,7 @@ const Home: NextPage = () => {
       setError(newPhoto);
     } else {
       mutate();
-      setRestoredImage(newPhoto);
+      settransformedImage(newPhoto);
     }
     setLoading(false);
   }
@@ -113,35 +113,14 @@ const Home: NextPage = () => {
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>Restore Photos</title>
+        <title>transform Photos</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header photo={session?.user?.image || undefined} />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
-        <a
-          className="border shadow-xl flex max-w-md rounded-xl mb-6 hover:scale-[1.02] transition duration-300 ease-in-out"
-          href="https://www.roomgpt.io/"
-          target="_blank"
-          onClick={() => va.track('RoomGPT link clicked')}
-        >
-          <img
-            src="/roomgpt-ad.png"
-            alt="roomgpt ad"
-            className="w-48 rounded-lg"
-          />
-          <div className="flex gap-3 flex-col py-3 sm:pr-4 pr-2">
-            <h3 className="text-left sm:text-md text-sm text-gray-700">
-              Revolutionize your space with the world's first AI interior
-              designer, 100% free to try.{' '}
-            </h3>
-            <p className="text-left sm:text-sm text-xs text-gray-500 opacity-50 font-medium">
-              ROOMGPT.IO
-            </p>
-          </div>
-        </a>
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-900 sm:text-6xl mb-5">
-          Restore any face photo
+          Transform any JPEG or PNG to SVG
         </h1>
         {status === 'authenticated' && data && (
           <p className="text-slate-500">
@@ -158,14 +137,14 @@ const Home: NextPage = () => {
         )}
         <div className="flex justify-between items-center w-full flex-col mt-4">
           <Toggle
-            className={`${restoredLoaded ? 'visible mb-6' : 'invisible'}`}
+            className={`${transformedLoaded ? 'visible mb-6' : 'invisible'}`}
             sideBySide={sideBySide}
             setSideBySide={(newVal) => setSideBySide(newVal)}
           />
-          {restoredLoaded && sideBySide && (
+          {transformedLoaded && sideBySide && (
             <CompareSlider
               original={originalPhoto!}
-              restored={restoredImage!}
+              transformed={transformedImage!}
             />
           )}
           {status === 'loading' ? (
@@ -187,8 +166,8 @@ const Home: NextPage = () => {
             !originalPhoto && (
               <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
                 <div className="max-w-xl text-gray-600">
-                  Sign in below with Google to create a free account and restore
-                  your photos today. You will be able to restore 5 photos per
+                  Sign in below with Google to create a free account and transform
+                  your photos today. You will be able to transform 4 photos per
                   day for free.
                 </div>
                 <button
@@ -206,7 +185,7 @@ const Home: NextPage = () => {
               </div>
             )
           )}
-          {originalPhoto && !restoredImage && (
+          {originalPhoto && !transformedImage && (
             <Image
               alt="original photo"
               src={originalPhoto}
@@ -215,7 +194,7 @@ const Home: NextPage = () => {
               height={475}
             />
           )}
-          {restoredImage && originalPhoto && !sideBySide && (
+          {transformedImage && originalPhoto && !sideBySide && (
             <div className="flex sm:space-x-4 sm:flex-row flex-col">
               <div>
                 <h2 className="mb-1 font-medium text-lg">Original Photo</h2>
@@ -228,15 +207,15 @@ const Home: NextPage = () => {
                 />
               </div>
               <div className="sm:mt-0 mt-8">
-                <h2 className="mb-1 font-medium text-lg">Restored Photo</h2>
-                <a href={restoredImage} target="_blank" rel="noreferrer">
+                <h2 className="mb-1 font-medium text-lg">transformed Photo</h2>
+                <a href={transformedImage} target="_blank" rel="noreferrer">
                   <Image
-                    alt="restored photo"
-                    src={restoredImage}
+                    alt="transformed photo"
+                    src={transformedImage}
                     className="rounded-2xl relative sm:mt-0 mt-2 cursor-zoom-in"
                     width={475}
                     height={475}
-                    onLoadingComplete={() => setRestoredLoaded(true)}
+                    onLoadingComplete={() => settransformedLoaded(true)}
                   />
                 </a>
               </div>
@@ -270,8 +249,8 @@ const Home: NextPage = () => {
               <button
                 onClick={() => {
                   setOriginalPhoto(null);
-                  setRestoredImage(null);
-                  setRestoredLoaded(false);
+                  settransformedImage(null);
+                  settransformedLoaded(false);
                   setError(null);
                 }}
                 className="bg-black rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-black/80 transition"
@@ -279,14 +258,14 @@ const Home: NextPage = () => {
                 Upload New Photo
               </button>
             )}
-            {restoredLoaded && (
+            {transformedLoaded && (
               <button
                 onClick={() => {
-                  downloadPhoto(restoredImage!, appendNewToName(photoName!));
+                  downloadPhoto(transformedImage!, appendNewToName(photoName!));
                 }}
                 className="bg-white rounded-full text-black border font-medium px-4 py-2 mt-8 hover:bg-gray-100 transition"
               >
-                Download Restored Photo
+                Download transformed Photo
               </button>
             )}
           </div>

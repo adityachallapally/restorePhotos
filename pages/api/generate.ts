@@ -54,7 +54,7 @@ export default async function handler(
   }
 
   const imageUrl = req.body.imageUrl;
-  // POST request to Replicate to start the image restoration generation process
+  // POST request to Replicate to start the image transformation generation process
   let startResponse = await fetch("https://api.replicate.com/v1/predictions", {
     method: "POST",
     headers: {
@@ -71,9 +71,9 @@ export default async function handler(
   let jsonStartResponse = await startResponse.json();
   let endpointUrl = jsonStartResponse.urls.get;
 
-  // GET request to get the status of the image restoration process & return the result when it's ready
-  let restoredImage: string | null = null;
-  while (!restoredImage) {
+  // GET request to get the status of the image transformation process & return the result when it's ready
+  let transformedImage: string | null = null;
+  while (!transformedImage) {
     // Loop in 1s intervals until the alt text is ready
     console.log("polling for result...");
     let finalResponse = await fetch(endpointUrl, {
@@ -86,7 +86,7 @@ export default async function handler(
     let jsonFinalResponse = await finalResponse.json();
 
     if (jsonFinalResponse.status === "succeeded") {
-      restoredImage = jsonFinalResponse.output;
+      transformedImage = jsonFinalResponse.output;
     } else if (jsonFinalResponse.status === "failed") {
       break;
     } else {
@@ -95,5 +95,5 @@ export default async function handler(
   }
   res
     .status(200)
-    .json(restoredImage ? restoredImage : "Failed to restore image");
+    .json(transformedImage ? transformedImage : "Failed to transform image");
 }

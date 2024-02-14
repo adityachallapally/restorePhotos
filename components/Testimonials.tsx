@@ -4,7 +4,7 @@ const testimonials = [
   [
     {
       content:
-        "Just had early access to this and it's *ridic*. Powered by @vercel x @replicatehq – also very fast.",
+        "SVG Cake is amazing",
       link: "https://twitter.com/rauchg/status/1612233034622984192",
       author: {
         name: "Guillermo Rauch",
@@ -14,7 +14,7 @@ const testimonials = [
     },
     {
       content:
-        "This is amazing! And in the 🧵 you can see the whole open-source stack instantly deployable to Vercel",
+        "SVG Cake is amazing",
       link: "https://twitter.com/cramforce/status/1612496954218672128",
       author: {
         name: "Malte Ubl",
@@ -26,7 +26,7 @@ const testimonials = [
   [
     {
       content:
-        "I just used it and am extremely impressed with the website and wanted to express my appreciation for the excellent design and functionality. Keep up the great work!",
+        "vSVG Cake is amazing",
       link: "https://twitter.com/phar_whaz/status/1612498030627852309",
       author: {
         name: "Fawaz Adeniji",
@@ -36,7 +36,7 @@ const testimonials = [
     },
     {
       content:
-        "Turning blurred photos into perfectly sharp ones. Works like magic",
+        "SVG Cake is amazing",
       link: "https://twitter.com/sergvind/status/1612610058369515521",
       author: {
         name: "Sergei Vinderskikh",
@@ -48,7 +48,7 @@ const testimonials = [
   [
     {
       content:
-        "I've just used it and damn I'll keep coming back! This is so good. Great work!",
+        "SVG Cake is amazing",
       link: "https://twitter.com/Himanil_Gole/status/1612510385504157697",
       author: {
         name: "Himanil Gole",
@@ -58,7 +58,7 @@ const testimonials = [
     },
     {
       content:
-        "Wow, thank you! Tried a few and love it! My small example (pic of father from 70s original on right), really cleaned it up!",
+        "SVG Cake is amazing",
       link: "https://twitter.com/rod_ellison/status/1612513333302775809",
       author: {
         name: "Rod Ellison",
@@ -82,7 +82,7 @@ export function Testimonials() {
             Loved by many worldwide.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-slate-700 leading-7">
-            See what our 300,000+ users are saying about the product.
+            See what our early users are saying about the product.
           </p>
         </div>
         <ul
